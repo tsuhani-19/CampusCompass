@@ -1,0 +1,4 @@
+*.pack filter=lfs diff=lfs merge=lfs -text
+node_modules/** filter=lfs diff=lfs merge=lfs -text
+Resume_Builder_ReactJs/node_modules/.cache/default-development/*.pack filter=lfs diff=lfs merge=lfs -text
+Resume_Builder_ReactJs/node_modules/** filter=lfs diff=lfs merge=lfs -text
