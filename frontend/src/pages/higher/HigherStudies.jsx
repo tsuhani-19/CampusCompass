@@ -40,6 +40,14 @@ const exams = [
     duration: "3 Hours",
     link: "/HigherStudies/CatExam",  // ✅ Fixed link
   },
+  {
+    name: "MS Abroad",
+    description:
+      "Prepare for pursuing a Master's degree abroad with guidance on GRE, TOEFL/IELTS, SOPs, and top universities.",
+    duration: "Variable (Typically 1–2 Years)",
+    link: "/HigherStudies/MsPreparation",  // ✅ Adjust the route as per your folder structure
+  }
+  
 ];
 
 const HigherStudies = () => {

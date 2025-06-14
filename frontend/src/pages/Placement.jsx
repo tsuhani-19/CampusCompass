@@ -1,28 +1,57 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import google from "../assets/google.png"
-import amazon from "../assets/amazon1.png"
-import micro from "../assets/micro.png"
+import { useNavigate } from "react-router-dom";
+import { companiesData } from "../data/companiesData"; // Import your data
 
-// Company data with logos
-const companies = [
-  { name: "Google", logo: google },
-  { name: "Amazon", logo: amazon },
-  { name: "Microsoft", logo: micro },
-  { name: "IBM", logo: google },
-  { name: "TCS", logo: google },
-  { name: "Infosys", logo: google },
-  { name: "Wipro", logo: google },
-];
+// Reusable component to display company details
+const CompanyDetails = ({ company }) => {
+  if (!company) {
+    return <div className="text-center p-10 text-red-500 text-lg">Company not found.</div>;
+  }
+
+  return (
+    <div className="min-h-screen bg-white py-10 px-6 md:px-24">
+      <div className="bg-gray-100 p-8 rounded-lg shadow-lg">
+        <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">{company.name}</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg text-gray-700">
+          <p><strong>Category:</strong> {company.category}</p>
+          <p><strong>Package:</strong> {company.package}</p>
+          <p><strong>Branches Eligible:</strong> {company.branches.join(", ")}</p>
+          <p><strong>Job Role:</strong> {company.jobRole}</p>
+          <p><strong>Eligible Students:</strong> {company.eligibleStudents}</p>
+          <p><strong>Appeared Students:</strong> {company.appearedStudents}</p>
+        </div>
+
+        <div className="mt-6">
+          <h3 className="text-2xl font-semibold mb-2 text-gray-800">Required Skills</h3>
+          <ul className="list-disc pl-6 space-y-2">
+            {company.requiredSkills.map((skill, idx) => (
+              <li key={idx}>{skill}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Placement = () => {
   const [selectedCompany, setSelectedCompany] = useState("");
+  const [companyDetails, setCompanyDetails] = useState(null);
+  const navigate = useNavigate();
+
+  const handleSelectChange = (e) => {
+    const name = e.target.value;
+    setSelectedCompany(name);
+
+    // Find the selected company data
+    const selectedData = companiesData.find((company) => company.name === name);
+    setCompanyDetails(selectedData);
+
+    navigate(`/placement/details/${encodeURIComponent(name)}`);
+
+  };
 
   return (
     <div className="bg-white min-h-screen flex flex-col justify-between p-8">
@@ -43,17 +72,17 @@ const Placement = () => {
             <label htmlFor="companySearch" className="text-lg font-medium text-gray-700">
               Search for a Company
             </label>
-            <div className="relative">
+            <div className="relative z-10">
               <select
                 id="companySearch"
                 value={selectedCompany}
-                onChange={(e) => setSelectedCompany(e.target.value)}
+                onChange={handleSelectChange}
                 className="w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 appearance-none"
               >
                 <option value="" disabled>
                   Select a company
                 </option>
-                {companies.map((company, index) => (
+                {companiesData.map((company, index) => (
                   <option key={index} value={company.name}>
                     {company.name}
                   </option>
@@ -61,63 +90,13 @@ const Placement = () => {
               </select>
             </div>
 
-            {/* Selection Stages */}
-            {selectedCompany && (
-              <div className="mt-6 space-y-4">
-                <Link to="aptitude-test">
-                  <div className="p-3 bg-gray-100 rounded-lg shadow-sm cursor-pointer hover:bg-gray-200 transition">
-                    Aptitude Test
-                  </div>
-                </Link>
-                <Link to="technical-round">
-                  <div className="p-3 bg-gray-100 rounded-lg shadow-sm cursor-pointer hover:bg-gray-200 transition">
-                    Technical Round
-                  </div>
-                </Link>
-                <Link to="gd-round">
-                  <div className="p-3 bg-gray-100 rounded-lg shadow-sm cursor-pointer hover:bg-gray-200 transition">
-                    GD Round
-                  </div>
-                </Link>
-                <Link to="interview">
-                  <div className="p-3 bg-gray-100 rounded-lg shadow-sm cursor-pointer hover:bg-gray-200 transition">
-                    Interview
-                  </div>
-                </Link>
-              </div>
-            )}
+            {/* Company Details */}
+            {companyDetails && <CompanyDetails company={companyDetails} />}
           </div>
         </div>
 
         {/* Company Logos Carousel */}
-        <div className="w-full max-w-5xl mx-auto">
-          <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={30}
-            slidesPerView={4}
-            navigation
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 2000 }}
-            breakpoints={{
-              640: { slidesPerView: 2 },
-              768: { slidesPerView: 3 },
-              1024: { slidesPerView: 4 },
-            }}
-          >
-            {companies.map((company, index) => (
-              <SwiperSlide key={index}>
-                <motion.div
-                  className="w-24 h-24 bg-white rounded-full shadow-md flex justify-center items-center mx-auto border border-gray-200"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <img src={company.logo} alt={company.name} className="w-16 h-16 object-contain" />
-                </motion.div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+        {/* Add your carousel code here */}
       </div>
     </div>
   );

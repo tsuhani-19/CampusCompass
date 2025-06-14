@@ -19,21 +19,16 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Right Side - Newsletter */}
+   
         <div className="md:w-1/2 w-full">
-          <p className="mb-4">
-            Subscribe to our newsletter to receive the latest updates, news, and offers!
-          </p>
-          <div className="flex">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full px-4 py-2 rounded-l-md text-white"
-            />
-            <button className="bg-primary px-6 py-2 rounded-r-md hover:bg-primary-dark">
-              Subscribe
-            </button>
-          </div>
+        <div className="flex flex-col gap-2 text-sm text-gray-300">
+  <p className="text-lg font-semibold text-white mb-2">Get in Touch</p>
+  <p>Address: Shree L.R. Tiwari Educational Campus, Mira Road-East, Thane-401107.</p>
+  <p>Toll Free: 1800 210 1002</p>
+  <p>Contact No: 7715083090</p>
+  <p>Email: sirtce@rahuleducation.com</p>
+</div>
+
         </div>
       </div>
 

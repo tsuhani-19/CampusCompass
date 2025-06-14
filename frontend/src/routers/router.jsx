@@ -21,6 +21,8 @@ import Ies from "../pages/higher/IES.jsx";
 import Isro from "../pages/higher/IsroExam.jsx";
 import Barc from "../pages/higher/BarcExam.jsx";
 import Prediction from "../pages/home/Prediction.jsx";
+import MSGuide from "../pages/higher/MSGuide.jsx";
+import Details from "../pages/Details.jsx";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +66,12 @@ const router = createBrowserRouter([
         path: "/HigherStudies",
         element: <HigherStudies />,
       },
+      {
+        path: "/placement/details/:companyName",
+        element: <Details />,
+      },
+
+      {path: "/HigherStudies/MsPreparation", element: <MSGuide />},
       {
         path: "/HigherStudies/gate",
         element: <Gate />,
