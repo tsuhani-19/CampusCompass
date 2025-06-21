@@ -68,13 +68,12 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-  <a 
-    href="http://localhost:3000" 
-    target="_self"  
+  <Link
+   to="Resume"
     className="hover:text-primary transition duration-200"
   >
     Resume
-  </a>
+  </Link>
 </li>
           <li>
             <Link to="/HigherStudies" className="hover:text-primary transition duration-200">

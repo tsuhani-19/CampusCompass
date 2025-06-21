@@ -40,6 +40,8 @@ app.use("/api/auth", authRoutes);
 // ✅ Use Event Routes
 const internshipRoutes = require("./src/internship/internship.routes");
 app.use("/api/internships", internshipRoutes);
+const resumeRoutes = require("./src/resume/resume.route");
+app.use("/api/resume", resumeRoutes);
 
 // Root Endpoint
 app.get("/", (req, res) => {
